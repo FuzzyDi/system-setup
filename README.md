@@ -1,0 +1,79 @@
+# System Setup Workspace
+
+Набор локальных скриптов для диагностики и безопасной настройки рабочей станции разработки.
+
+## Назначение
+
+- `audit-dev-workstation.cmd` - только читает состояние и формирует `dev-layout-audit.txt`.
+- `setup-dev-layout.ps1` - создает целевые каталоги и настраивает user-level cache/config для npm, Maven, Gradle, pnpm, pip и Codex.
+- `run-codex-shell-repair-and-audit.cmd` - интерактивно применяет safe-mode Codex config, создает dev-layout и запускает аудит.
+- `codex-config-safe-mode.cmd` - интерактивно заменяет только Codex config на минимальный safe-mode вариант.
+- `diagnose-powershell.cmd` - собирает диагностику PowerShell в `powershell-diagnostics.txt`.
+
+## Текущий стандарт раскладки
+
+- Projects: `D:\Projects`
+- Tools: `D:\Tools`
+- npm global: `D:\Tools\npm-global`
+- npm cache: `D:\Tools\npm-cache`
+- Maven local repository: `D:\DevCache\maven\repository`
+- Gradle user home: `D:\DevCache\gradle`
+- pnpm store: `D:\DevCache\pnpm-store`
+- pip cache: `D:\DevCache\pip-cache`
+- SDK: `D:\SDK`
+- Backups: `E:\Backups`
+- Archive: `F:\Archive`
+
+Docker Desktop и WSL этими скриптами не переносятся.
+
+## Безопасный порядок проверки
+
+1. Проверить shell:
+
+```powershell
+Get-Date
+```
+
+2. Запустить read-only аудит:
+
+```cmd
+D:\Projects\_system-setup\audit-dev-workstation.cmd
+```
+
+3. Проверить ключевые строки в `dev-layout-audit.txt`:
+
+```text
+npm prefix: D:\Tools\npm-global
+npm cache:  D:\Tools\npm-cache
+sandbox_mode = "workspace-write"
+network_access = false
+```
+
+## Применение настроек
+
+`setup-dev-layout.ps1` меняет user-level настройки инструментов. Перед применением нужно понимать, что будут изменены:
+
+- `%USERPROFILE%\.m2\settings.xml`
+- `%USERPROFILE%\.codex\config.toml`, если применить `-ApplyCodexConfig`
+- `%USERPROFILE%\.codex\AGENTS.md`, если применить `-ApplyCodexAgents`
+- user environment variables: `GRADLE_USER_HOME`, `NPM_CONFIG_CACHE`
+- npm, pnpm и pip user/global config
+
+Интерактивный запуск:
+
+```powershell
+PowerShell -NoProfile -ExecutionPolicy Bypass -File D:\Projects\_system-setup\setup-dev-layout.ps1
+```
+
+Не использовать `-NonInteractive`, если не готов принять все записи без подтверждения.
+
+## Что не делать без отдельного подтверждения
+
+- Не удалять cache/directories.
+- Не запускать Docker/WSL migration.
+- Не выполнять `git reset --hard`, `git clean -fdx`, `rm -rf`.
+- Не печатать содержимое `.env`, `auth.json`, tokens, credentials, certificates или production configs.
+
+## Git
+
+Папка может быть подключена к Git позже. Сгенерированные отчеты, логи и backup-файлы исключены через `.gitignore`, потому что содержат локальные пути и состояние конкретной рабочей станции.

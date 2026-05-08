@@ -1,0 +1,13 @@
+# Generated local diagnostics
+*.log
+dev-layout-audit.txt
+powershell-diagnostics.txt
+
+# Local backups produced before config rewrites
+*.backup-*
+*.proposed
+
+# Windows/editor noise
+Thumbs.db
+Desktop.ini
+.vscode/
