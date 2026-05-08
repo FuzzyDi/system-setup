@@ -47,6 +47,14 @@ Do not run without explicit approval:
 ## Java and Set Retail 10
 
 - Default target for POS plugins: Java 8.
+- For Set Retail 10 projects, use the local knowledge base first:
+  `D:\Projects\set10_ai_knowledge_final_master_bundle`.
+- Start Set Retail 10 knowledge lookup from:
+  `99_final_master\QUICK_START.md`,
+  `99_final_master\question_router.md`,
+  `99_final_master\layer_usage_map.md`,
+  `00_readme\bundle_manifest.json`.
+- Treat the knowledge base as reference material, not as a replacement for inspecting the target repository, SDK JARs, logs, manifests, and actual source code.
 - Do not introduce Spring Boot, Lombok, Kotlin, native libraries, OkHttp, or heavy dependencies into Set Retail 10 POS plugins unless explicitly approved.
 - Prefer `java.net.HttpURLConnection` for lightweight POS-side HTTP clients.
 - If an API signature is unclear, inspect SDK JARs with `javap` or search inside the JAR. Do not invent signatures.

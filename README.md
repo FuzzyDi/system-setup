@@ -102,6 +102,25 @@ D:\Projects\_system-setup\AGENTS.md
 C:\Users\Rashid\.codex\AGENTS.md
 ```
 
+## Set Retail 10 knowledge base
+
+Для задач по Set Retail 10 используется локальная база знаний:
+
+```text
+D:\Projects\set10_ai_knowledge_final_master_bundle
+```
+
+Стартовые файлы для поиска:
+
+```text
+99_final_master\QUICK_START.md
+99_final_master\question_router.md
+99_final_master\layer_usage_map.md
+00_readme\bundle_manifest.json
+```
+
+Эта база является справочным слоем. При разработке все равно нужно проверять целевой репозиторий, SDK JAR, `pom.xml`, `metainf.xml`, MANIFEST.MF, строки локализации, логи и фактические сигнатуры API.
+
 Текущий безопасный минимум для `C:\Users\Rashid\.codex\config.toml`:
 
 ```toml
