@@ -23,7 +23,7 @@ if errorlevel 1 (
 >> "%OUT%" echo.
 
 >> "%OUT%" echo == Executable locations ==
-for %%N in (node npm codex git java mvn docker pnpm pip powershell) do (
+for %%N in (node npm codex git java mvn docker pnpm pip powershell pwsh) do (
   >> "%OUT%" echo -- %%N --
   where %%N >> "%OUT%" 2>&1
 )
@@ -32,6 +32,7 @@ for %%N in (node npm codex git java mvn docker pnpm pip powershell) do (
 >> "%OUT%" echo == Tool versions ==
 node --version >> "%OUT%" 2>&1
 call npm --version >> "%OUT%" 2>&1
+pwsh --version >> "%OUT%" 2>&1
 >> "%OUT%" echo git --version skipped: keep audit non-blocking.
 >> "%OUT%" echo java -version skipped: keep audit non-blocking.
 >> "%OUT%" echo mvn --version skipped: keep audit non-blocking.
@@ -42,8 +43,12 @@ call npm --version >> "%OUT%" 2>&1
 >> "%OUT%" echo.
 
 >> "%OUT%" echo == npm config ==
+>> "%OUT%" echo prefix:
 call npm config get prefix >> "%OUT%" 2>&1
+>> "%OUT%" echo cache:
 call npm config get cache >> "%OUT%" 2>&1
+>> "%OUT%" echo script-shell:
+call npm config get script-shell >> "%OUT%" 2>&1
 >> "%OUT%" echo.
 
 >> "%OUT%" echo == npm global packages depth 0 ==

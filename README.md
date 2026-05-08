@@ -23,6 +23,7 @@ https://github.com/FuzzyDi/system-setup
 - Tools: `D:\Tools`
 - npm global: `D:\Tools\npm-global`
 - npm cache: `D:\Tools\npm-cache`
+- npm script shell: PowerShell 7 (`pwsh`), если установлен и явно задан через `npm config set script-shell`
 - Maven local repository: `D:\DevCache\maven\repository`
 - Gradle user home: `D:\DevCache\gradle`
 - pnpm store: `D:\DevCache\pnpm-store`
@@ -62,6 +63,7 @@ D:\Projects\_system-setup\audit-dev-workstation.cmd
 ```text
 npm prefix: D:\Tools\npm-global
 npm cache:  D:\Tools\npm-cache
+npm script-shell: pwsh or WindowsApps\pwsh.exe
 sandbox_mode = "workspace-write"
 network_access = false
 ```
@@ -119,6 +121,25 @@ network_access = false
 
 ```powershell
 powershell.exe -NoLogo -NoProfile -NonInteractive -Command "Get-Date; 'OK'"
+```
+
+Проверка PowerShell 7, если он установлен:
+
+```powershell
+pwsh --version
+pwsh -NoLogo -NoProfile -Command '$PSVersionTable.PSVersion; node --version; npm --version'
+```
+
+Если нужно запускать `npm run ...` через PowerShell 7:
+
+```powershell
+npm config set script-shell "$env:LOCALAPPDATA\Microsoft\WindowsApps\pwsh.exe"
+```
+
+Откат к поведению npm по умолчанию:
+
+```powershell
+npm config delete script-shell
 ```
 
 Полная локальная диагностика:
