@@ -21,8 +21,8 @@ if not exist "%CODEX_DIR%" (
   mkdir "%CODEX_DIR%"
 )
 
-> "%SAFE%" echo model = "gpt-5.5"
->> "%SAFE%" echo model_reasoning_effort = "high"
+> "%SAFE%" echo model = "gpt-5.4"
+>> "%SAFE%" echo model_reasoning_effort = "medium"
 >> "%SAFE%" echo approval_policy = "on-request"
 >> "%SAFE%" echo sandbox_mode = "workspace-write"
 >> "%SAFE%" echo.

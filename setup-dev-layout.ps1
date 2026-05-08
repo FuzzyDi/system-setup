@@ -272,8 +272,8 @@ function Update-CodexConfigText {
     param([string]$ExistingText)
 
     $text = $ExistingText
-    $text = Set-TomlScalar -Text $text -Section '' -Key 'model' -Value '"gpt-5.5"'
-    $text = Set-TomlScalar -Text $text -Section '' -Key 'model_reasoning_effort' -Value '"high"'
+    $text = Set-TomlScalar -Text $text -Section '' -Key 'model' -Value '"gpt-5.4"'
+    $text = Set-TomlScalar -Text $text -Section '' -Key 'model_reasoning_effort' -Value '"medium"'
     $text = Set-TomlScalar -Text $text -Section '' -Key 'personality' -Value '"pragmatic"'
     $text = Set-TomlScalar -Text $text -Section '' -Key 'approval_policy' -Value '"on-request"'
     $text = Set-TomlScalar -Text $text -Section '' -Key 'sandbox_mode' -Value '"workspace-write"'

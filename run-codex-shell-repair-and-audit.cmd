@@ -46,8 +46,8 @@ if exist "%CONFIG%" (
 )
 
 >> "%LOG%" echo == Write safe-mode Codex config ==
-> "%CONFIG%" echo model = "gpt-5.5"
->> "%CONFIG%" echo model_reasoning_effort = "high"
+> "%CONFIG%" echo model = "gpt-5.4"
+>> "%CONFIG%" echo model_reasoning_effort = "medium"
 >> "%CONFIG%" echo approval_policy = "on-request"
 >> "%CONFIG%" echo sandbox_mode = "workspace-write"
 >> "%CONFIG%" echo log_dir = "D:\\Tools\\codex-logs"

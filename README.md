@@ -124,8 +124,8 @@ D:\Projects\set10_ai_knowledge_final_master_bundle
 Текущий безопасный минимум для `C:\Users\Rashid\.codex\config.toml`:
 
 ```toml
-model = "gpt-5.5"
-model_reasoning_effort = "high"
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 log_dir = "D:\\Tools\\codex-logs"
