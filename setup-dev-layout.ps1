@@ -112,6 +112,25 @@ function Update-MavenSettings {
     Write-Host "maven localRepository set: $RepositoryPath"
 }
 
+function Get-ToolHomeFromBinCommand {
+    param(
+        [string]$CommandName,
+        [string]$ExpectedBinLeaf
+    )
+
+    $command = Get-Command $CommandName -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($null -eq $command -or [string]::IsNullOrWhiteSpace($command.Source)) {
+        return $null
+    }
+
+    $binPath = Split-Path -Parent $command.Source
+    if ([string]::IsNullOrWhiteSpace($binPath) -or ((Split-Path -Leaf $binPath) -ine $ExpectedBinLeaf)) {
+        return $null
+    }
+
+    return Split-Path -Parent $binPath
+}
+
 function Set-TomlScalar {
     param(
         [string]$Text,
@@ -409,6 +428,13 @@ if (Get-Command npm -ErrorAction SilentlyContinue) {
     npm config set prefix 'D:\Tools\npm-global'
     npm config set cache 'D:\Tools\npm-cache' --location=user
     npm config set cache 'D:\Tools\npm-cache' --location=global
+    $pwsh = Get-Command pwsh -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($null -ne $pwsh -and -not [string]::IsNullOrWhiteSpace($pwsh.Source)) {
+        npm config set script-shell $pwsh.Source
+        Write-Host "npm script-shell set: $($pwsh.Source)"
+    } else {
+        Write-Host 'pwsh not found; npm script-shell left unchanged'
+    }
     Write-Host 'npm prefix/cache configured'
     Write-Host 'NPM_CONFIG_CACHE set: D:\Tools\npm-cache'
 } else {
@@ -420,6 +446,13 @@ Set-UserPathEntry -Entry 'D:\Tools\npm-global'
 
 Write-Step "Configure Maven local repository"
 Update-MavenSettings -RepositoryPath 'D:\DevCache\maven\repository'
+$mavenHome = Get-ToolHomeFromBinCommand -CommandName 'mvn' -ExpectedBinLeaf 'bin'
+if ($mavenHome) {
+    [Environment]::SetEnvironmentVariable('MAVEN_HOME', $mavenHome, 'User')
+    Write-Host "MAVEN_HOME set: $mavenHome"
+} else {
+    Write-Host 'mvn not found in a standard bin directory; MAVEN_HOME left unchanged'
+}
 
 Write-Step "Configure Gradle user home"
 [Environment]::SetEnvironmentVariable('GRADLE_USER_HOME', 'D:\DevCache\gradle', 'User')

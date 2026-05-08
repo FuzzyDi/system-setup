@@ -76,7 +76,9 @@ network_access = false
 - `%USERPROFILE%\.codex\config.toml`, если применить `-ApplyCodexConfig`
 - `%USERPROFILE%\.codex\AGENTS.md`, если применить `-ApplyCodexAgents`
 - user environment variables: `GRADLE_USER_HOME`, `NPM_CONFIG_CACHE`
+- user environment variable: `MAVEN_HOME`, если `mvn` найден в стандартном `bin` каталоге
 - npm, pnpm и pip user/global config
+- npm `script-shell`, если PowerShell 7 (`pwsh`) найден
 
 Интерактивный запуск:
 
