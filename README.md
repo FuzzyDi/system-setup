@@ -10,6 +10,7 @@ https://github.com/FuzzyDi/system-setup
 
 ## Назначение
 
+- `AGENTS.md` - канонический основной prompt для Codex; копируется в `%USERPROFILE%\.codex\AGENTS.md`.
 - `audit-dev-workstation.cmd` - только читает состояние и формирует `dev-layout-audit.txt`.
 - `setup-dev-layout.ps1` - создает целевые каталоги и настраивает user-level cache/config для npm, Maven, Gradle, pnpm, pip и Codex.
 - `run-codex-shell-repair-and-audit.cmd` - интерактивно применяет safe-mode Codex config, создает dev-layout и запускает аудит.
@@ -84,6 +85,18 @@ PowerShell -NoProfile -ExecutionPolicy Bypass -File D:\Projects\_system-setup\se
 Не использовать `-NonInteractive`, если не готов принять все записи без подтверждения.
 
 ## Codex safe-mode
+
+Основной prompt хранится в репозитории:
+
+```text
+D:\Projects\_system-setup\AGENTS.md
+```
+
+Рабочая копия для Codex:
+
+```text
+C:\Users\Rashid\.codex\AGENTS.md
+```
 
 Текущий безопасный минимум для `C:\Users\Rashid\.codex\config.toml`:
 

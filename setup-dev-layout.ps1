@@ -330,43 +330,13 @@ function Update-CodexConfig {
 }
 
 function Get-AgentsContent {
-@'
-# Global instructions for Codex
+    $agentsSource = Join-Path $PSScriptRoot 'AGENTS.md'
+    if (-not (Test-Path -LiteralPath $agentsSource)) {
+        throw "Canonical AGENTS.md not found: $agentsSource"
+    }
 
-## Language
-
-- Always communicate with the user in Russian.
-- Be precise, technical, and practical.
-- Do not guess APIs, class names, method signatures, database schemas, protocol fields, or legal/tax details.
-- If data is missing, inspect the repository, logs, JAR files, documentation, OpenAPI specs, or ask for the exact source.
-
-## Engineering workflow
-
-- Before editing code, inspect the project structure and relevant files.
-- Prefer small, reviewable diffs.
-- Do not commit or push unless explicitly requested.
-- After important milestones, remind the user to sync completed work with GitHub.
-
-## Safety
-
-- Never print, copy, commit, or expose secrets.
-- Treat .env files, Telegram bot tokens, API keys, database passwords, Cloudflare tokens, fiscal/OFD credentials, private certificates, and production configs as secrets.
-- Do not run destructive commands without explicit confirmation.
-- Destructive commands include rm -rf, git reset --hard, git clean -fdx, docker system prune, docker volume rm, DROP/TRUNCATE/DELETE without WHERE, production migrations, and commands that touch POS/fiscal/printer devices.
-
-## Java and Set Retail 10
-
-- Default target for Set Retail 10 POS plugins: Java 8.
-- Do not introduce Spring Boot, Lombok, Kotlin, native libraries, OkHttp, or heavy dependencies into Set Retail 10 POS plugins unless explicitly approved.
-- If an API signature is unclear, inspect SDK JARs with javap or search inside the JAR. Do not invent signatures.
-- Always inspect pom.xml, metainf.xml, MANIFEST.MF generation, strings_ru.xml, strings_en.xml, and SDK JAR versions.
-- Use Set10 metainf namespace: http://crystals.ru/set10/api/metainf
-
-## SBG plugin manifest standard
-
-- For SBG projects use vendor: SBG (Soft Business Group).
-- Recommended manifest entries: Plugin-Id, Plugin-Version, Implementation-Version, Build-Date, Project, Implementation-Vendor, Vendor-URL, Vendor-Email, Build-Machine, Branch, Revision.
-'@
+    $utf8Strict = New-Object System.Text.UTF8Encoding($false, $true)
+    return [System.IO.File]::ReadAllText($agentsSource, $utf8Strict)
 }
 
 function Update-CodexAgents {
